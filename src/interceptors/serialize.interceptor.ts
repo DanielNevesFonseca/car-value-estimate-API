@@ -17,6 +17,7 @@ export function Serialize(dto: IClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
+// Middleware/Interceptor para retirar os campos inválidos do corpo da requisição.
 export class SerializeInterceptor implements NestInterceptor {
   constructor(private dto: any) {}
 
