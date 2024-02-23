@@ -43,7 +43,7 @@ export class AuthService {
     if (storedHash !== hash.toString('hex')) {
       throw new BadRequestException('Invalid credentials');
     }
-    
+
     return user;
   }
 }
