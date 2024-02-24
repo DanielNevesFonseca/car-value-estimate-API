@@ -26,6 +26,7 @@ import { Report } from './reports/reports.entity';
         };
       },
     }),
+    // Fixed DB, user below
     /* 
     TypeOrmModule.forRoot({
       type: 'sqlite',

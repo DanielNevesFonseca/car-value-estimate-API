@@ -1,0 +1,14 @@
+### Create new report 
+POST http://localhost:3000/reports
+Content-Type: application/json
+
+{
+  "price": 99999,
+  "brand": "Fiat",
+  "model": "Uno",
+  "year": 2008,
+  "mileage": 111111,
+  "longitude": "26.4",
+  "latitude": "55.1"
+
+}

@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { User } from 'src/users/users.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Report {
@@ -18,11 +19,14 @@ export class Report {
   year: number;
 
   @Column()
-  longetude: number;
+  longitude: number;
 
   @Column()
   latitude: number;
 
   @Column()
   mileage: number;
+
+  @ManyToOne(() => User, (user) => user.reports)
+  user: User;
 }
