@@ -3,14 +3,13 @@ POST http://localhost:3000/reports
 Content-Type: application/json
 
 {
-  "price": 99999,
-  "brand": "Fiat",
-  "model": "Uno",
+  "price": 20000,
+  "brand": "Chevrolet",
+  "model": "Montana",
   "year": 2008,
-  "mileage": 111111,
-  "longitude": "26.4",
-  "latitude": "55.1"
-
+  "mileage": 500,
+  "longitude": "45",
+  "latitude": "45"
 }
 
 ### Approve an existing Report
@@ -20,3 +19,6 @@ Content-Type: application/json
 {
   "approved": true
 }
+
+### Get an estimate for an existing vehicle
+GET http://localhost:3000/reports?brand=Chevrolet&model=Montana&year=2008&mileage=7000&latitude=45&longitude=45
