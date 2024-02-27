@@ -6,8 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/users.entity';
-import { Report } from './reports/reports.entity';
+import { TypeOrmConfigService } from './config/typeorm.config';
 
 const cookieSession = require('cookie-session');
 
@@ -17,18 +16,8 @@ const cookieSession = require('cookie-session');
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
-
-    // Configuração modificada para suportar .env
     TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        return {
-          type: 'sqlite',
-          database: config.get<string>('DB_NAME'),
-          synchronize: true,
-          entities: [User, Report],
-        };
-      },
+      useClass: TypeOrmConfigService,
     }),
     UsersModule,
     ReportsModule,
@@ -36,8 +25,6 @@ const cookieSession = require('cookie-session');
   controllers: [AppController],
   providers: [
     AppService,
-
-    // Configurando Global Pipe
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({
@@ -47,12 +34,15 @@ const cookieSession = require('cookie-session');
   ],
 })
 
+
 export class AppModule {
+  constructor(private configService: ConfigService) {}
+
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
         cookieSession({
-          keys: ['my_secret_key'],
+          keys: [this.configService.get('COOKIE_KEY')],
         }),
       )
       .forRoutes('*');
