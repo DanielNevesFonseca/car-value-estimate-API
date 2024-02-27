@@ -2,6 +2,6 @@
 # exit on error
 set -o errexit
 
-npm
+npm install
 npm run build
-npm run typeorm migration:run -d dist/data-source
+npm run typeorm -- migration:run -d dist/data-source
