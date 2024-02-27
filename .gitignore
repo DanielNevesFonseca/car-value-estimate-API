@@ -5,6 +5,8 @@
 # .env config variables
 .env.development
 .env.test
+.env.prod
+
 
 # Logs
 logs
